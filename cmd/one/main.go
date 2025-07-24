@@ -11,41 +11,51 @@ func main() {
 
 	var numerator int = 10
 	var denominator int = 2
-	var result, remainder int = intDivision(numerator, denominator)
+	var result, remainder, err = intDivision(numerator, denominator)
 
-	fmt.Printf("the result of integer division is %v and remainder is %v", result, remainder)
+	if err != nil {
+		fmt.Printf("%v\n", err)
+	} else if remainder == 0 {
+		fmt.Printf("the result of integer division is %v", result)
+
+	} else {
+		fmt.Printf("the result of integer division is %v and remainder is %v", result, remainder)
+
+	}
+
 }
 
 func PrintMe(printValue string) {
 	fmt.Println(printValue)
 }
 
-func intDivision(numerator int, denominator int) (int, int) {
+func intDivision(numerator int, denominator int) (int, int, error) {
 	var err error
 	if denominator == 0 {
-		err = errors.New("Cannot divide by 0")
+		err = errors.New("cannot divide by 0")
+		return 0, 0, err
 	}
 	var result int = numerator / denominator
 	var remainder int = numerator % denominator
 
-	return result, remainder
+	return result, remainder, err
 }
 
 //dataTypes
-import (
-	"fmt"
-	"unicode/utf8"
-)
+// import (
+// 	"fmt"
+// 	"unicode/utf8"
+// )
 
-func main() {
-	var intNum int16 = 3278
-	fmt.Println(intNum)
-	fmt.Println(len("γ"))                    //number of bytes in string
-	fmt.Println(utf8.RuneCountInString("γ")) //actual length of string
+// func main() {
+// 	var intNum int16 = 3278
+// 	fmt.Println(intNum)
+// 	fmt.Println(len("γ"))                    //number of bytes in string
+// 	fmt.Println(utf8.RuneCountInString("γ")) //actual length of string
 
-	var myString = "text"
-	myString2 := "zz"
+// 	var myString = "text"
+// 	myString2 := "zz"
 
-	fmt.Println(myString, myString2)
+// 	fmt.Println(myString, myString2)
 
-}
+// }
