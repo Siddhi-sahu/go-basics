@@ -1,61 +1,45 @@
 package main
 
-import (
-	"errors"
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	// var printValue string = "helloo"
-	// PrintMe(printValue)
+	//AArays and slices
+	intArr := [...]int{2, 3, 4}
+	fmt.Println(intArr)
 
-	var numerator int = 10
-	var denominator int = 2
-	var result, remainder, err = intDivision(numerator, denominator)
+	var intSlice []int32 = []int32{4, 5, 6}
+	fmt.Printf("the lenght is %v and the capacity is %v", len(intSlice), cap(intSlice))
 
-	if err != nil {
-		fmt.Printf("%v\n", err)
-	} else if remainder == 0 {
-		fmt.Printf("the result of integer division is %v", result)
+	intSlice = append(intSlice, 7)
+	fmt.Printf("the lenght is %v and the capacity is %v", len(intSlice), cap(intSlice))
 
+	var intSlice2 []int32 = []int32{7, 8}
+	intSlice = append(intSlice, intSlice2...)
+
+	println(intSlice)
+
+	var intSlice3 []int32 = make([]int32, 3, 8)
+	println(intSlice3)
+
+	//Maps
+
+	var myMap map[string]uint8 = make(map[string]uint8)
+	fmt.Printf("%v\n", myMap)
+
+	var myMap2 = map[string]uint8{"Adam": 23, "saraf": 54}
+	fmt.Println(myMap2["json"]) //0
+
+	var age, ok = myMap2["Adam"]
+
+	if ok {
+		fmt.Printf("age %v", age)
 	} else {
-		fmt.Printf("the result of integer division is %v and remainder is %v", result, remainder)
-
+		fmt.Println("Invalid")
 	}
 
-}
+	//iteration
 
-func PrintMe(printValue string) {
-	fmt.Println(printValue)
-}
-
-func intDivision(numerator int, denominator int) (int, int, error) {
-	var err error
-	if denominator == 0 {
-		err = errors.New("cannot divide by 0")
-		return 0, 0, err
+	for name, age := range myMap2 {
+		fmt.Printf("Name: %v, Age: %v\n", name, age)
 	}
-	var result int = numerator / denominator
-	var remainder int = numerator % denominator
-
-	return result, remainder, err
 }
-
-//dataTypes
-// import (
-// 	"fmt"
-// 	"unicode/utf8"
-// )
-
-// func main() {
-// 	var intNum int16 = 3278
-// 	fmt.Println(intNum)
-// 	fmt.Println(len("γ"))                    //number of bytes in string
-// 	fmt.Println(utf8.RuneCountInString("γ")) //actual length of string
-
-// 	var myString = "text"
-// 	myString2 := "zz"
-
-// 	fmt.Println(myString, myString2)
-
-// }
