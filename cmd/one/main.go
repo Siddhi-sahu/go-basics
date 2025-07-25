@@ -1,45 +1,68 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	//AArays and slices
-	intArr := [...]int{2, 3, 4}
-	fmt.Println(intArr)
+	//Pointers
 
-	var intSlice []int32 = []int32{4, 5, 6}
-	fmt.Printf("the lenght is %v and the capacity is %v", len(intSlice), cap(intSlice))
+	var p *int32 = new(int32)
+	var i int32
 
-	intSlice = append(intSlice, 7)
-	fmt.Printf("the lenght is %v and the capacity is %v", len(intSlice), cap(intSlice))
+	fmt.Printf("the value p points at: %v\n", *p)
+	fmt.Printf("the value of i: %v\n", i)
 
-	var intSlice2 []int32 = []int32{7, 8}
-	intSlice = append(intSlice, intSlice2...)
+	p = &i
+	*p = 10
 
-	println(intSlice)
+	fmt.Printf("the value p points at: %v\n", *p)
+	fmt.Printf("the value of i: %v\n", i)
+	//structs and interfaces
 
-	var intSlice3 []int32 = make([]int32, 3, 8)
-	println(intSlice3)
+	var myEngine gasEngine = gasEngine{20, 40}
+	fmt.Println(myEngine.gallons, myEngine.mpg)
+	fmt.Printf("total miles left int the tank: %v\n", myEngine.milesLeft())
 
-	//Maps
+	// preset capactity
+	var n int = 1000000
+	var testSlice = []int{}
+	var testSlice2 = make([]int, 0, n)
 
-	var myMap map[string]uint8 = make(map[string]uint8)
-	fmt.Printf("%v\n", myMap)
+	fmt.Printf("Total time without prelocation: %v\n", timeLoop(testSlice, n))
+	fmt.Printf("Total time with prelocation: %v\n", timeLoop(testSlice2, n))
 
-	var myMap2 = map[string]uint8{"Adam": 23, "saraf": 54}
-	fmt.Println(myMap2["json"]) //0
+	//Strings, Runes and bytes
 
-	var age, ok = myMap2["Adam"]
+	var myString string = "résumé"
+	var indexed = myString[0]
 
-	if ok {
-		fmt.Printf("age %v", age)
-	} else {
-		fmt.Println("Invalid")
+	fmt.Printf("%v, %T\n", indexed, indexed)
+
+	for i, v := range myString {
+		fmt.Println(i, v)
 	}
 
-	//iteration
+}
 
-	for name, age := range myMap2 {
-		fmt.Printf("Name: %v, Age: %v\n", name, age)
+type gasEngine struct {
+	mpg     uint16
+	gallons uint16
+}
+
+func (e gasEngine) milesLeft() uint16 {
+	return e.gallons * e.mpg
+
+}
+
+func timeLoop(slice []int, n int) time.Duration {
+	var t0 = time.Now()
+
+	for len(slice) < n {
+		slice = append(slice, 1)
 	}
+
+	return time.Since(t0)
+
 }
